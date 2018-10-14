@@ -1,0 +1,23 @@
+{  
+	"title": "Configuration file",
+	"description": "Define debug mode app parameters here",
+	"security": {
+		"AUTH_SECRET_TOKEN": ""
+	},
+	"serverPort": 5000,
+	"databases": {
+		"auth": {
+		    "userName": "",
+		    "password": "",
+		    "server": "",
+		    "pool": {
+		        "max": 10,
+		        "min": 0
+		    },
+		    "options": {
+		        "database": "",
+		        "encrypt": true
+		    }
+		}
+	}  
+}
