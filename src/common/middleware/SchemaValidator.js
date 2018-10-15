@@ -31,7 +31,6 @@ var isValidSchema = (data, schema, validationOptions, hasSendJoiError) => {
     };
 }
 
-
 var schemaValidator = (useJoiError = false) => {
     const hasSendJoiError   = checkObjectsType.isBoolean(useJoiError) && useJoiError;
     const supportedMethods  = ['post', 'put'];
