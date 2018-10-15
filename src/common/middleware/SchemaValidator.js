@@ -23,10 +23,11 @@ var isValidSchema = (data, schema, validationOptions, hasSendJoiError) => {
             isValid: true,
             data: data
         };
-    } //hasSendJoiError ? JoiError : CustomError
+    } 
+    var errors = hasSendJoiError? getErrors(result.error.details): ['error'];
     return {
         isValid: false,
-        data: getErrors(result.error.details)
+        data: errors
     };
 }
 
