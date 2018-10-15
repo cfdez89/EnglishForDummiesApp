@@ -1,0 +1,117 @@
+
+/*
+ * Carlos Fernandez Jimenez
+*/
+
+/* variables */
+:root {
+    --color-light: white;
+    --color-dark: #FAFAFA;
+    --color-primary: #008CBA;;
+    --header-height: 54px;
+    --margin-s: 4px;
+    --margin-m: 8px;
+    --margin-l: 12px;
+    --font-size-s: 16px;
+    --font-size-m: 20px;
+    --font-size-l: 24px;
+  }
+
+/* layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+    font-size: var(--font-size-s);
+    height: 100vh;
+    background-color: var(--color-dark);
+}
+
+a:link {
+    color: var(--color-primary);
+}
+a:visited {
+    color: var(--color-primary);
+}
+a:hover {
+    color: var(--color-primary);
+}
+
+@supports (display: grid) {
+    body {
+        display: grid;
+        justify-content: center;	
+        grid-template-rows: 60%;
+        grid-template-columns: 30% 40% 30%;
+        grid-template-areas: 
+        ". login-form-container .";
+        align-content: center;
+        background-color: var(--color-dark);
+        color: var(--color-primary)
+    }
+
+    .login-form-container {
+        grid-area: login-form-container;
+        align-content: center;
+        text-align: center;
+        background-color:  var(--color-light);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .login-form-container > h1 {
+        padding-top: 20px;
+    }
+
+    .login-form {
+        display: grid;
+        grid-template-rows: 33.3% 33.3% 33.3%;
+        grid-template-columns: 100%;  
+        text-align: center;
+    }
+
+    .login-form-field {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 8px 10px 8px 10px;
+        border: 1px solid var(--color-primary);
+    }
+
+    .submit-form-field {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 8px 10px 8px 10px;
+        background-color: var(--color-primary);
+        color: var(--color-light);    
+        border: none;
+        cursor: pointer;
+        vertical-align: middle;
+        line-height: 1.1;
+     
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: var(--font-size-s);
+    }
+
+    @media (max-width: 650px) {
+        body {
+            grid-template-columns: 10% 80% 10%;
+        }
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>English for dummies</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/app/app.css"/>
+</head>
+<body>
+    <div class="login-form-container">
+        <h1>Login</h1>
+        <form class="login-form" action="/api/v1/account/login" method="POST" rel="js-login-form">
+            <input class="login-form-field" placeholder="username" type="text" name="username">
+            <input class="login-form-field" placeholder="password" type="password" name="password">
+            <input class="submit-form-field" type="submit" value="Log In" >
+        </form>
+        <a href="/home">Go to Home</a>
+    </div>
+</body>
+</html>
