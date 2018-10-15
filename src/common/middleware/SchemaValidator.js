@@ -53,13 +53,12 @@ var schemaValidator = (useJoiError = false) => {
             var currentSchema = schemas[route];
             if(currentSchema) {
                 var validatedSchema = isValidSchema(data, currentSchema, validationOptions, hasSendJoiError);
-               console.log(validatedSchema);
                 if(validatedSchema.isValid) {
                     req.body = validatedSchema.data;
                     return next();
                 }
                 else {
-                    return res.status(422).send(validatedSchema.data);
+                    return res.status(422).json(validatedSchema);
                 }
             } 
         }
