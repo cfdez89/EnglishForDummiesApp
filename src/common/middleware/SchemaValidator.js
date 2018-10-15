@@ -7,28 +7,33 @@ const Joi = require('joi');
 const checkObjectsType = require('../utils/checkObjectsType');
 const schemas          = require('../utils/schemas');
 
+var getErrors = (detailErrors) => {
+    var errors = detailErrors.map((detailError) => {
+        var message = detailError.message; 
+        var index   = message.indexOf(':');
+        return message.substring(0, index);
+    }); 
+    return errors;
+};
+
 var isValidSchema = (data, schema, validationOptions, hasSendJoiError) => {
     var result = Joi.validate(data, schema, validationOptions);
     if(result.error === null) {
-
-        //hasSendJoiError ? JoiError : CustomError
         return {
             isValid: true,
             data: data
         };
-
-    }
-    console.log(result);
+    } //hasSendJoiError ? JoiError : CustomError
     return {
         isValid: false,
-        data: null
+        data: getErrors(result.error.details)
     };
 }
 
 
-module.exports = (useJoiError = false) => {
-    const hasSendJoiError = checkObjectsType.isBoolean(useJoiError) && useJoiError;
-    const supportedMethods = ['post', 'put'];
+var schemaValidator = (useJoiError = false) => {
+    const hasSendJoiError   = checkObjectsType.isBoolean(useJoiError) && useJoiError;
+    const supportedMethods  = ['post', 'put'];
     const validationOptions = {
         abortEarly: false, // abort after the last validation error
         allowUnknown: true, // allow unknown keys that will be ignored
@@ -36,25 +41,31 @@ module.exports = (useJoiError = false) => {
     };
 
     return (req, res, next) => {
-        const route = req.route.path;
+        const route  = req.route.path;
         const method = req.method.toLowerCase();
-        
+        const data   = Object.assign({}, req.body);
+
         var hasMethod = supportedMethods.includes(method);
         var hasProp   = schemas.hasOwnProperty(route); 
 
         if(hasMethod && hasProp) {
             var currentSchema = schemas[route];
             if(currentSchema) {
-                var validatedSchema = isValidSchema(req.body, currentSchema, validationOptions, hasSendJoiError);
+                var validatedSchema = isValidSchema(data, currentSchema, validationOptions, hasSendJoiError);
+               console.log(validatedSchema);
                 if(validatedSchema.isValid) {
                     req.body = validatedSchema.data;
-                    next();
+                    return next();
                 }
                 else {
-                    res.status(422).send(validatedSchema.data);
+                    return res.status(422).send(validatedSchema.data);
                 }
             } 
         }
-        next();
+        return next();
     };
+};
+
+module.exports = {
+    schemaValidator: schemaValidator
 };

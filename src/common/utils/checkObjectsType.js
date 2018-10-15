@@ -28,7 +28,6 @@ var isUndefined = (value) => {
 	return typeof value === 'undefined';
 };
 
-
 module.exports = {
 	isObject: isObject,
 	isString: isString,

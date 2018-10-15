@@ -6,13 +6,13 @@ const path    = require('path');
 
 //import modules
 const AccountService  = require('../account/accountService');
-const SchemaValidator = require('../common/middleware/SchemaValidator'); 
+const validator       = require('../common/middleware/schemaValidator'); 
 const catchException  = require('../common/middleware/catchException');
 
 const init = (app) => {
     const router          = express.Router();
     const accountService  = new AccountService();
-    const validateRequest = SchemaValidator(true);
+    const validateRequest = validator.schemaValidator(true);
 
     app.get(
         '/login', 
@@ -24,11 +24,12 @@ const init = (app) => {
     app.post(
         '/api/v1/account/login', 
         validateRequest,
-        async (req, res, next) => {
+        async (req, res) => {
             try {
                 const { username, password } = req.body;
                 const user = await accountService.logIn(username, password);
-                res.send(user);
+                res.status(200).send(user);
+                res.end();
                // res.redirect("/");
             }
             catch(error) {
